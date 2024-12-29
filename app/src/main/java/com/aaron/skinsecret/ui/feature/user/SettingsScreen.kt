@@ -26,7 +26,7 @@ import com.aaron.skinsecret.ui.feature.MainScreenPage
 import com.aaron.skinsecret.ui.feature.TabVM
 import com.aaron.skinsecret.ui.feature.login.LoginVM
 import com.aaron.skinsecret.ui.feature.user.feedback.getFeedbackNavigationRoute
-import com.aaron.skinsecret.ui.feature.user.maintenance.getMaintenanceNavigationRoute
+import com.aaron.skinsecret.ui.feature.user.maintain.getMaintainNavigationRoute
 import com.aaron.skinsecret.ui.feature.user.myfavorites.getMyFavoritesNavigationRoute
 import com.aaron.skinsecret.ui.feature.user.userInfo.getUserInfoNavigationRoute
 import com.aaron.skinsecret.ui.widget.ButtonRound
@@ -87,11 +87,11 @@ fun SettingsScreen(
             }
             ButtonRound(
                 onClick = {
-                    navController.navigate(getMaintenanceNavigationRoute())
+                    navController.navigate(getMaintainNavigationRoute())
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(stringResource(R.string.maintainance_notify))
+                Text(stringResource(R.string.maintain_notify))
             }
             ButtonRound(
                 onClick = {

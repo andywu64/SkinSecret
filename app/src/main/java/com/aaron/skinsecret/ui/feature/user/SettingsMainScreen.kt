@@ -29,13 +29,14 @@ import com.aaron.skinsecret.ui.feature.TabVM
 import com.aaron.skinsecret.ui.feature.login.LoginVM
 import com.aaron.skinsecret.ui.feature.user.feedback.add.feedbackAddScreenRoute
 import com.aaron.skinsecret.ui.feature.user.feedback.feedbackScreenRoute
-import com.aaron.skinsecret.ui.feature.user.maintenance.add.maintenanceAddScreenRoute
-import com.aaron.skinsecret.ui.feature.user.maintenance.maintenanceScreenRoute
+import com.aaron.skinsecret.ui.feature.user.maintain.add.maintainAddScreenRoute
+import com.aaron.skinsecret.ui.feature.user.maintain.maintainScreenRoute
 import com.aaron.skinsecret.ui.feature.user.myfavorites.myFavoritesScreenRoute
 import com.aaron.skinsecret.ui.feature.user.userInfo.accountinfo.accountInfoScreenRoute
 import com.aaron.skinsecret.ui.feature.user.userInfo.introduce.introduceScreenRoute
 import com.aaron.skinsecret.ui.feature.user.userInfo.skintestinfo.skinTestInfoScreenRoute
 import com.aaron.skinsecret.ui.feature.user.userInfo.userInfoScreenRoute
+import com.aaron.skinsecret.viewmodel.user.maintain.MaintainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -117,6 +118,7 @@ fun SettingsAppTopBar(
 fun SettingsNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
+    maintainVM: MaintainViewModel = viewModel(),
     tabVM: TabVM,
     loginVM: LoginVM,
 ) {
@@ -152,12 +154,14 @@ fun SettingsNavHost(
             navController = navController,
             tabVM = tabVM
         )
-        maintenanceScreenRoute(
+        maintainScreenRoute(
             navController = navController,
+            maintainVM = maintainVM,
             tabVM = tabVM
         )
-        maintenanceAddScreenRoute(
+        maintainAddScreenRoute(
             navController = navController,
+            maintainVM = maintainVM,
             tabVM = tabVM
         )
         feedbackScreenRoute(

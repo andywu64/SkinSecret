@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -55,10 +56,10 @@ fun HomeMainScreen(
     // 儲存當前頁籤索引，一開始設定為0，代表要顯示BookMain頁面
     var tabIndex by remember { mutableIntStateOf(0) }
     val tabs = listOf(
-        stringResource(id = R.string.community_article),
+        stringResource(id = R.string.column_skin_care),
         stringResource(id = R.string.product),
         stringResource(id = R.string.activity),
-        stringResource(id = R.string.column_skin_care),
+        stringResource(id = R.string.community_article),
         stringResource(id = R.string.settings)
     )
 
@@ -71,10 +72,10 @@ fun HomeMainScreen(
         ) {
             when (tabIndex) {
                 // 將tabVM傳至下頁，以便於控制TabRow的隱藏與顯示
-                0 -> CommunityMainScreen(tabVM = tabVM)
+                0 -> ColumnSkinCareMainScreen(tabVM = tabVM)
                 1 -> ProductMainScreen(tabVM = tabVM)
                 2 -> ActivityMainScreen(tabVM = tabVM)
-                3 -> ColumnSkinCareMainScreen(tabVM = tabVM)
+                3 -> CommunityMainScreen(tabVM = tabVM)
                 4 -> SettingsMainScreen(
                     tabVM = tabVM,
                     loginVM = loginVM
@@ -106,27 +107,57 @@ fun HomeMainScreen(
                             when (index) {
                                 0 -> Icon(
                                     imageVector = Icons.Default.Home,
-                                    contentDescription = tabs[0]
+                                    contentDescription = tabs[0],
+                                    modifier = Modifier.graphicsLayer {
+                                        if (tabIndex == 0) {
+                                            scaleX = 1.2f
+                                            scaleY = 1.2f
+                                        }
+                                    }
                                 )
 
                                 1 -> Icon(
                                     imageVector = Icons.Default.Face,
-                                    contentDescription = tabs[1]
+                                    contentDescription = tabs[1],
+                                    modifier = Modifier.graphicsLayer {
+                                        if (tabIndex == 1) {
+                                            scaleX = 1.4f
+                                            scaleY = 1.4f
+                                        }
+                                    }
                                 )
 
                                 2 -> Icon(
                                     imageVector = Icons.Default.Person,
-                                    contentDescription = tabs[2]
+                                    contentDescription = tabs[2],
+                                    modifier = Modifier.graphicsLayer {
+                                        if (tabIndex == 2) {
+                                            scaleX = 1.6f
+                                            scaleY = 1.6f
+                                        }
+                                    }
                                 )
 
                                 3 -> Icon(
                                     imageVector = Icons.Default.Edit,
-                                    contentDescription = tabs[3]
+                                    contentDescription = tabs[3],
+                                    modifier = Modifier.graphicsLayer {
+                                        if (tabIndex == 3) {
+                                            scaleX = 1.8f
+                                            scaleY = 1.8f
+                                        }
+                                    }
                                 )
 
                                 4 -> Icon(
                                     imageVector = Icons.Default.Settings,
-                                    contentDescription = tabs[4]
+                                    contentDescription = tabs[4],
+                                    modifier = Modifier.graphicsLayer {
+                                        if (tabIndex == 4) {
+                                            scaleX = 2.0f
+                                            scaleY = 2.0f
+                                        }
+                                    }
                                 )
                             }
                         }

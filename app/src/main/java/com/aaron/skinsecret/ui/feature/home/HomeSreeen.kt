@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -38,7 +39,7 @@ fun HomeScreen(
                 },
                 imageState = ImageState(
                     title = stringResource(R.string.enter_keyword),
-                    imageVector = Icons.Filled.Search
+                    painter = rememberVectorPainter(Icons.Filled.Search)
                 ),
                 onValueChange = {
 

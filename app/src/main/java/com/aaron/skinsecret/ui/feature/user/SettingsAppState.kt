@@ -12,8 +12,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.aaron.skinsecret.R
 import com.aaron.skinsecret.ui.feature.user.feedback.add.getFeedbackAddNavigationRoute
 import com.aaron.skinsecret.ui.feature.user.feedback.getFeedbackNavigationRoute
-import com.aaron.skinsecret.ui.feature.user.maintenance.add.getMaintenanceAddNavigationRoute
-import com.aaron.skinsecret.ui.feature.user.maintenance.getMaintenanceNavigationRoute
+import com.aaron.skinsecret.ui.feature.user.maintain.add.getMaintainAddNavigationRoute
+import com.aaron.skinsecret.ui.feature.user.maintain.getMaintainNavigationRoute
 import com.aaron.skinsecret.ui.feature.user.myfavorites.getMyFavoritesNavigationRoute
 import com.aaron.skinsecret.ui.feature.user.userInfo.accountinfo.getAccountInfoNavigationRoute
 import com.aaron.skinsecret.ui.feature.user.userInfo.introduce.getIntroduceNavigationRoute
@@ -62,17 +62,17 @@ enum class TipTopLevelDestination(
         route = getMyFavoritesNavigationRoute(),
         title = R.string.my_favorites
     ),
-    Maintenance(
+    Maintain(
         icon = Icons.Filled.Search,
-        iconText = "搜尋",
-        route = getMaintenanceNavigationRoute(),
-        title = R.string.maintainance_notify
+        iconText = "保養通知",
+        route = getMaintainNavigationRoute(),
+        title = R.string.maintain_notify
     ),
-    MaintenanceAdd(
+    MaintainAdd(
         icon = Icons.Filled.Search,
-        iconText = "搜尋",
-        route = getMaintenanceAddNavigationRoute(),
-        title = R.string.maintainance_notify_add
+        iconText = "新增保養通知",
+        route = getMaintainAddNavigationRoute(),
+        title = R.string.maintain_notify_add
     ),
     Feedback(
         icon = Icons.Filled.Search,
@@ -127,8 +127,8 @@ class SettingsAppState(
             getAccountInfoNavigationRoute() -> TipTopLevelDestination.AccountInfo
             getSkinTestInfoNavigationRoute() -> TipTopLevelDestination.SkinTestInfo
             getMyFavoritesNavigationRoute() -> TipTopLevelDestination.MyFavorites
-            getMaintenanceNavigationRoute() -> TipTopLevelDestination.Maintenance
-            getMaintenanceAddNavigationRoute() -> TipTopLevelDestination.MaintenanceAdd
+            getMaintainNavigationRoute() -> TipTopLevelDestination.Maintain
+            getMaintainAddNavigationRoute() -> TipTopLevelDestination.MaintainAdd
             getFeedbackNavigationRoute() -> TipTopLevelDestination.Feedback
             getFeedbackAddNavigationRoute() -> TipTopLevelDestination.FeedbackAdd
             else -> null

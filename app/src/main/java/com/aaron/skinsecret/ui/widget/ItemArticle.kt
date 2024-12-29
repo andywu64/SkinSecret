@@ -2,6 +2,7 @@ package com.aaron.skinsecret.ui.widget
 
 import android.graphics.Color
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,20 +14,29 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.sharp.AccountCircle
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.aaron.skinsecret.R
+import com.aaron.skinsecret.util.ImageState
+import com.aaron.skinsecret.util.ItemCountState
 
 @Composable
 fun ItemArticle() {
-
+    var expanded by remember { mutableStateOf(false) }
     Row (
         //horizontalArrangement = Arrangement.SpaceEvenly,
         modifier = Modifier
@@ -61,42 +71,31 @@ fun ItemArticle() {
             Row (
                 modifier = Modifier.weight(1f),
             ){
-                Row (
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(5.dp),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Favorite,
-                        contentDescription = "Favorite",
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Text("15")
-                }
-                Row (
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(5.dp),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.baseline_message_60),
-                        contentDescription = "Favorite",
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Text("20")
-                }
-                Row (
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(5.dp),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.baseline_bookmark_60),
-                        contentDescription = "Favorite",
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Text("123")
-                }
+                MultipleItemCount(
+                    items = listOf(
+                        ItemCountState(
+                            image = ImageState(
+                                title = "Favorite",
+                                painter = rememberVectorPainter(Icons.Outlined.Favorite)
+                            ),
+                            count = "15"
+                        ),
+                        ItemCountState(
+                            image = ImageState(
+                                title = "Favorite",
+                                painter = painterResource(R.drawable.baseline_message_60)
+                            ),
+                            count = "15"
+                        ),
+                        ItemCountState(
+                            image = ImageState(
+                                title = "Favorite",
+                                painter = painterResource(R.drawable.baseline_bookmark_60)
+                            ),
+                            count = "15"
+                        ),
+                    ),
+                )
                 Spacer(modifier = Modifier.width(10.dp))
                 Text(
                     "發文時間",
@@ -116,8 +115,30 @@ fun ItemArticle() {
                 Icon(
                     painter = painterResource(R.drawable.baseline_more_vert_60),
                     contentDescription = "more",
-                    //modifier = Modifier.size(100.dp)
+                    modifier = Modifier
+                        .clickable {
+                            expanded = !expanded
+                        }
                 )
+            }
+            if (expanded) {
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false }
+                ) {
+                    DropdownMenuItem(
+                        text = {  Text("Refresh") },
+                        onClick = { /* Handle refresh! */ }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Settings") },
+                        onClick = { /* Handle settings! */ }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Send Feedback") },
+                        onClick = { /* Handle send feedback! */ }
+                    )
+                }
             }
             Image(
                 painter = painterResource(R.drawable.baseline_image_60),

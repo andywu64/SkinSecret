@@ -1,8 +1,8 @@
 package com.aaron.skinsecret.util
 
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.painter.Painter
 
 data class ImageState(
-    val title: String,
-    val imageVector: ImageVector
+    var title: String,
+    var painter: Painter
 )

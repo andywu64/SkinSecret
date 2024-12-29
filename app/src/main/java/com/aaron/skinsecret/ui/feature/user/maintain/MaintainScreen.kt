@@ -1,13 +1,9 @@
-package com.aaron.skinsecret.ui.feature.user.feedback
+package com.aaron.skinsecret.ui.feature.user.maintain
 
 import android.graphics.Color
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,6 +13,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Gray
@@ -26,34 +23,36 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aaron.skinsecret.ui.feature.TabVM
-import com.aaron.skinsecret.ui.feature.user.feedback.add.getFeedbackAddNavigationRoute
-import com.aaron.skinsecret.ui.widget.ButtonRound
-import com.aaron.skinsecret.ui.widget.ItemFeedback
-import com.aaron.skinsecret.dataclass.user.feedback.Feedback
-import com.aaron.skinsecret.viewmodel.user.feedback.FeedbackViewModel
+import com.aaron.skinsecret.ui.feature.user.maintain.add.getMaintainAddNavigationRoute
+import com.aaron.skinsecret.ui.widget.ItemSkinCareNotify
+import com.aaron.skinsecret.dataclass.user.maintain.Maintain
+import com.aaron.skinsecret.viewmodel.user.maintain.MaintainViewModel
+import kotlinx.coroutines.launch
 
 @Composable
-fun FeedbackScreen(
+fun MaintainScreen(
     navController: NavHostController,
-    feedbackVM: FeedbackViewModel = viewModel(),
+    maintainVM: MaintainViewModel = viewModel(),
     tabVM: TabVM
 ) {
     tabVM.updateTabState(false)
-    val feedbacks = feedbackVM.feedbacksState.collectAsState()
-
+    val maintains = maintainVM.maintainsState.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
     Box {
-        FeedbackLists(
-            feedbacks.value,
+        MaintainLists(maintains.value,
             onItemClick = {
-                feedbackVM.updateFeedbackState(it)
+                maintainVM.updateMaintainState(it)
             },
             onDeleteClick = {
-                feedbackVM.removeItem(it)
+                coroutineScope.launch {
+                    //response = requestVM.updateUser(name, job)
+                    maintainVM.deleteItem(it.id)
+                }
             }
         )
         FloatingActionButton(
             onClick = {
-                navController.navigate(getFeedbackAddNavigationRoute())
+                navController.navigate(getMaintainAddNavigationRoute())
             },
             modifier = Modifier
                 .padding(15.dp)
@@ -68,33 +67,37 @@ fun FeedbackScreen(
 }
 
 @Composable
-fun FeedbackLists(
-    feedbacks: List<Feedback>,
-    onItemClick: (Feedback) -> Unit,
-    onDeleteClick: (Feedback) -> Unit
+fun MaintainLists(
+    maintains: List<Maintain>,
+    onItemClick: (Maintain) -> Unit,
+    onDeleteClick: (Maintain) -> Unit
 ) {
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(10.dp),
         modifier = Modifier
-            .padding(10.dp)
+            .padding(start = 10.dp, end = 10.dp)
             .fillMaxSize()
     ) {
-        items(feedbacks) { feedback ->
-            ItemFeedback(
-                feedback = feedback,
+        items(maintains) { maintain ->
+            ItemSkinCareNotify(
+                maintain = maintain,
+                onItemClick = { onItemClick(maintain) },
+                onDeleteClick = { onDeleteClick(maintain) },
             )
-            //Spacer(Modifier.height(10.dp))
+            HorizontalDivider(
+                thickness = 2.dp,
+                color = Gray
+            )
         }
     }
 }
 
-@Preview (
+@Preview(
     showBackground = true,
-    backgroundColor = Color.WHITE.toLong()
+    backgroundColor = Color.LTGRAY.toLong()
 )
 @Composable
-fun FeedbackScreenPreview() {
-    FeedbackScreen(
+fun MaintainScreenPreview() {
+    MaintainScreen(
         navController = rememberNavController(),
         tabVM = viewModel()
     )

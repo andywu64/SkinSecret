@@ -1,5 +1,6 @@
 package com.aaron.skinsecret.ui.feature.user.myfavorites
 
+import android.graphics.Color
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Tab
@@ -11,7 +12,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -61,7 +62,7 @@ fun MyFavoritesScreen(
                     // 設定選取顏色
                     selectedContentColor = colorResource(id = R.color.peach_pale),
                     // 設定未選取顏色
-                    unselectedContentColor = Color.Gray,
+                    unselectedContentColor = Gray,
                     /*icon = {
                         when (index) {
                             0 -> Icon(
@@ -110,7 +111,10 @@ fun MyFavoritesScreen(
     }
 }
 
-@Preview
+@Preview (
+    showBackground = true,
+    backgroundColor = Color.WHITE.toLong()
+)
 @Composable
 fun MyFavoritesScreenPreview() {
     MyFavoritesScreen(
