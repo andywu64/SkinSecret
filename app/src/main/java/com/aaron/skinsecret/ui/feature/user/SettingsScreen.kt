@@ -23,7 +23,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aaron.skinsecret.R
 import com.aaron.skinsecret.ui.feature.MainScreenPage
-import com.aaron.skinsecret.ui.feature.TabVM
+import com.aaron.skinsecret.ui.TabVM
 import com.aaron.skinsecret.ui.feature.login.LoginVM
 import com.aaron.skinsecret.ui.feature.user.feedback.getFeedbackNavigationRoute
 import com.aaron.skinsecret.ui.feature.user.maintain.getMaintainNavigationRoute

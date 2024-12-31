@@ -3,7 +3,7 @@ package com.aaron.skinsecret.ui.feature.product
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.aaron.skinsecret.ui.feature.TabVM
+import com.aaron.skinsecret.ui.TabVM
 
 const val PRODUCT_NAVIGATION_ROUTE = "product"
 

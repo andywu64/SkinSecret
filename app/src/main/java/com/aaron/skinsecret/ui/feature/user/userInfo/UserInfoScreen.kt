@@ -13,7 +13,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aaron.skinsecret.R
-import com.aaron.skinsecret.ui.feature.TabVM
+import com.aaron.skinsecret.ui.TabVM
 import com.aaron.skinsecret.ui.feature.user.userInfo.accountinfo.getAccountInfoNavigationRoute
 import com.aaron.skinsecret.ui.feature.user.userInfo.introduce.getIntroduceNavigationRoute
 import com.aaron.skinsecret.ui.feature.user.userInfo.skintestinfo.getSkinTestInfoNavigationRoute

@@ -3,7 +3,7 @@ package com.aaron.skinsecret.ui.feature.user.maintain.add
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.aaron.skinsecret.ui.feature.TabVM
+import com.aaron.skinsecret.ui.TabVM
 import com.aaron.skinsecret.viewmodel.user.maintain.MaintainViewModel
 
 const val MAINTAIN_ADD_NAVIGATION_ROUTE = "maintain_add"

@@ -3,7 +3,7 @@ package com.aaron.skinsecret.ui.feature.user
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.aaron.skinsecret.ui.feature.TabVM
+import com.aaron.skinsecret.ui.TabVM
 import com.aaron.skinsecret.ui.feature.login.LoginVM
 
 const val SETTINGS_NAVIGATION_ROUTE = "settings"

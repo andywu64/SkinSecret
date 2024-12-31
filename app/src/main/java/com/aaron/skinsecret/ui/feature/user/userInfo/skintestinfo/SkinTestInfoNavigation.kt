@@ -3,7 +3,7 @@ package com.aaron.skinsecret.ui.feature.user.userInfo.skintestinfo
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.aaron.skinsecret.ui.feature.TabVM
+import com.aaron.skinsecret.ui.TabVM
 
 const val SKIN_TEST_INFO_NAVIGATION_ROUTE = "skin_test_info"
 

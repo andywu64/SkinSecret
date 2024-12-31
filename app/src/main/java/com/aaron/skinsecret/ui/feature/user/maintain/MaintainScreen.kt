@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.aaron.skinsecret.ui.feature.TabVM
+import com.aaron.skinsecret.ui.TabVM
 import com.aaron.skinsecret.ui.feature.user.maintain.add.getMaintainAddNavigationRoute
 import com.aaron.skinsecret.ui.widget.ItemSkinCareNotify
 import com.aaron.skinsecret.dataclass.user.maintain.Maintain

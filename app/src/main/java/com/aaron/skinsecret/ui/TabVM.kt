@@ -1,4 +1,4 @@
-package com.aaron.skinsecret.ui.feature
+package com.aaron.skinsecret.ui
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

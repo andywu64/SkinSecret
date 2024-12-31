@@ -28,13 +28,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aaron.skinsecret.R
-import com.aaron.skinsecret.ui.feature.TabVM
+import com.aaron.skinsecret.ui.TabVM
 import com.aaron.skinsecret.ui.feature.activity.ActivityMainScreen
 import com.aaron.skinsecret.ui.feature.columnskincare.ColumnSkinCareMainScreen
 import com.aaron.skinsecret.ui.feature.community.CommunityMainScreen
 import com.aaron.skinsecret.ui.feature.login.LoginVM
 import com.aaron.skinsecret.ui.feature.product.ProductMainScreen
-import com.aaron.skinsecret.ui.feature.product.ProductScreen
 import com.aaron.skinsecret.ui.feature.user.SettingsMainScreen
 
 enum class HomeMainPage(@StringRes val title: Int) {
