@@ -6,7 +6,6 @@ data class Feedback (
     var id: Int = 0,
     var userId: String = "",
     var productId: Int = 0,
-    var title: String = "",
     var content: String = "",
     var reply: String = "",
     var date: LocalDateTime,

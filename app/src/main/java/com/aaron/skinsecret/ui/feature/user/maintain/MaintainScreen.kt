@@ -46,7 +46,9 @@ fun MaintainScreen(
             onDeleteClick = {
                 coroutineScope.launch {
                     //response = requestVM.updateUser(name, job)
-                    maintainVM.deleteItem(it.id)
+                    if (maintainVM.deleteItem(it.id)) {
+                        maintainVM.getMaintains()
+                    }
                 }
             }
         )

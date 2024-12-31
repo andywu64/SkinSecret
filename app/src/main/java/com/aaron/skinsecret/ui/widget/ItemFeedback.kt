@@ -45,11 +45,11 @@ fun ItemFeedback(
                 verticalArrangement = Arrangement.spacedBy(5.dp),
                 modifier = Modifier.weight(1f)
             ) {
-                Text(
+                /*Text(
                     feedback.title,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
-                )
+                )*/
                 Text(
                     feedback.content,
                     modifier = Modifier

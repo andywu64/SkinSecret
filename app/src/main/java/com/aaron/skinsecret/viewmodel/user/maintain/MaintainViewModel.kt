@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aaron.skinsecret.apiservice.user.maintain.MaintainAipInstance
 import com.aaron.skinsecret.dataclass.user.maintain.Maintain
+import com.aaron.skinsecret.repository.user.maintain.MaintainRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,20 +17,11 @@ import java.time.LocalDateTime
 class MaintainViewModel: ViewModel() {
     private val tag = "tag_MaintainVM"
 
-    @SuppressLint("NewApi")
-    private val _maintainEdit = MutableStateFlow(
-        Maintain(
-            id = 1,
-            userId = "U00000006",
-            title = "測試",
-            interval = 7,
-            reminder = LocalDateTime.now(),
-        )
-    )
-    val maintainEdit = _maintainEdit.asStateFlow()
+    private val repository = MaintainRepository
+    val maintainEdit = repository.maintainState
 
     fun updateMaintainState(data: Maintain){
-        _maintainEdit.value = data
+        repository.setMaintain(data)
     }
 
     private val _maintainsState = MutableStateFlow(emptyList<Maintain>())
@@ -125,7 +117,7 @@ class MaintainViewModel: ViewModel() {
         }
     }*/
 
-    suspend fun deleteItem(id: Int = 2): Boolean {
+    suspend fun deleteItem(id: Int): Boolean {
         var deleted: Boolean
         try {
             val response = MaintainAipInstance.api.deleteMaintain(id)

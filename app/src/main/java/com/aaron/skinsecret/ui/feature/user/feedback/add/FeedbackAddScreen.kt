@@ -50,7 +50,7 @@ fun FeedbackAddScreen(
 ) {
     tabVM.updateTabState(false)
     val feedback = feedbackVM.feedbackEdit.collectAsState()
-    var feedbackTitle by remember { mutableStateOf(feedback.value.title) }
+    //var feedbackTitle by remember { mutableStateOf(feedback.value.title) }
     var feedbackContent by remember { mutableStateOf(feedback.value.content) }
     Column (
         modifier = modifier
@@ -64,7 +64,7 @@ fun FeedbackAddScreen(
                 .background(color = LightGray)
                 .padding(15.dp)
         ) {
-            TextFieldInput(
+            /*TextFieldInput(
                 title = stringResource(R.string.feedback_title),
                 input = feedbackTitle,
                 label = {
@@ -74,7 +74,7 @@ fun FeedbackAddScreen(
                     feedbackTitle = it
                 },
                 modifier = Modifier
-            )
+            )*/
             TextFieldInput(
                 title = stringResource(R.string.feedback_content),
                 input = feedbackContent,

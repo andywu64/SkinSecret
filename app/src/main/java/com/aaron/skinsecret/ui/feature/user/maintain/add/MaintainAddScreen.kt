@@ -1,7 +1,9 @@
 package com.aaron.skinsecret.ui.feature.user.maintain.add
 
 import android.graphics.Color
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -26,7 +27,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -38,10 +38,20 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aaron.skinsecret.R
 import com.aaron.skinsecret.ui.feature.TabVM
+import com.aaron.skinsecret.ui.theme.WhiteSmoke
 import com.aaron.skinsecret.ui.widget.ButtonRound
+import com.aaron.skinsecret.ui.widget.DropDownMenuWidget
+import com.aaron.skinsecret.ui.widget.SuggestionChipWidget
 import com.aaron.skinsecret.ui.widget.TextFieldInput
+import com.aaron.skinsecret.ui.widget.datetime.DateTimePickerWidget
 import com.aaron.skinsecret.viewmodel.user.maintain.MaintainViewModel
 import kotlinx.coroutines.launch
+
+enum class RepeatType {
+    Day,
+    Week,
+    Month
+}
 
 @Composable
 fun MaintainAddScreen(
@@ -55,6 +65,8 @@ fun MaintainAddScreen(
     var title by remember { mutableStateOf(maintain.value.title) }
     var reminder by remember { mutableStateOf(maintain.value.reminder) }
     var interval by remember { mutableLongStateOf(maintain.value.interval) }
+    var showIntervalSelector by remember { mutableStateOf(false) }
+    var repeatType by remember { mutableStateOf(RepeatType.Day) }
     val coroutineScope = rememberCoroutineScope()
 
     Column (
@@ -66,7 +78,7 @@ fun MaintainAddScreen(
             verticalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier
                 .clip(RoundedCornerShape(15.dp))
-                .background(color = LightGray)
+                .background(color = WhiteSmoke)
                 .padding(15.dp)
         ) {
             Column {
@@ -90,13 +102,10 @@ fun MaintainAddScreen(
                         imageVector = Icons.Default.DateRange,
                         contentDescription = "calendar"
                     )
-                    ButtonRound(
-                        onClick = {
-                            // DateTimePicker
-                        },
-                        modifier = Modifier.fillMaxWidth()
+                    DateTimePickerWidget(
+                        datetime = reminder
                     ) {
-                        Text("2024/12/24 00:00")
+                        reminder = it
                     }
                 }
             }
@@ -108,42 +117,31 @@ fun MaintainAddScreen(
                     modifier = Modifier.fillMaxWidth()
                 ){
                     Text(
-                        "1",
+                        interval.toString(),
                         fontSize = 24.sp,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
                             .weight(3f)
+                            .clickable {
+                                showIntervalSelector = true
+                            }
                     )
-                    Row (
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                        modifier = Modifier
-                            .weight(4f)
+                    DropDownMenuWidget(
+                        expanded = showIntervalSelector,
+                        items = getDropDownItems(repeatType),
+                        onDismissRequest = {
+                            showIntervalSelector = false
+                        }
                     ) {
-                        SuggestionChip(
-                            onClick = {
-
-                            },
-                            label = {
-                                Text(stringResource(R.string.day))
-                            }
-                        )
-                        SuggestionChip(
-                            onClick = {
-
-                            },
-                            label =  {
-                                Text(stringResource(R.string.week))
-                            }
-                        )
-                        SuggestionChip(
-                            onClick = {
-
-                            },
-                            label = {
-                                Text(stringResource(R.string.month))
-                            }
-                        )
+                        interval = it.toLong()
+                        showIntervalSelector = false
+                    }
+                    RepeatChoose(
+                        repeatType = repeatType,
+                        modifier = Modifier.weight(4f)
+                    ) {
+                        repeatType = it
                     }
                 }
             }
@@ -161,7 +159,7 @@ fun MaintainAddScreen(
             ) {
                 ButtonRound(
                     onClick = {
-
+                        navController.popBackStack()
                     },
                     shape = RoundedCornerShape(15),
                     modifier = Modifier
@@ -171,15 +169,22 @@ fun MaintainAddScreen(
                 }
                 ButtonRound(
                     onClick = {
-                        coroutineScope.launch {
-                            val response = maintainVM.createItem(
-                                userId = maintain.value.userId,
-                                reminder = reminder,
-                                interval = interval,
-                                title = title,
-                            )
-                            if (response > 0) {
-                                navController.popBackStack()
+                        if (title.isNotEmpty() &&
+                            interval > 0 &&
+                            maintain.value.userId.isNotEmpty() &&
+                            maintain.value.userId != "-1"
+                            ) {
+                            coroutineScope.launch {
+                                val response = maintainVM.createItem(
+                                    userId = maintain.value.userId,
+                                    reminder = reminder,
+                                    interval = interval,
+                                    title = title,
+                                )
+                                if (response > 0) {
+                                    maintainVM.getMaintains()
+                                    navController.popBackStack()
+                                }
                             }
                         }
                     },
@@ -194,6 +199,65 @@ fun MaintainAddScreen(
     }
 }
 
+fun getDropDownItems(
+    repeatType: RepeatType
+) : Map<String, Int> {
+    return when (repeatType) {
+        // 之後有時闁再調整依選定的日期來判斷要顯示一個月的天數
+        RepeatType.Day -> (1..31).withIndex().associate {
+            (it.index + 1).toString() to it.value
+        }
+        // 之後有時間再調整依選定的日期來判斷要顯示一個月的週數
+        RepeatType.Week -> (1..4).withIndex().associate {
+            (it.index + 1).toString() to it.value
+        }
+        RepeatType.Month -> (1..12).withIndex().associate {
+            (it.index + 1).toString() to it.value
+        }
+    }
+}
+
+@Composable
+fun RepeatChoose(
+    repeatType: RepeatType,
+    modifier: Modifier = Modifier,
+    callback: (RepeatType) -> Unit
+) {
+    Log.d("tag_maintain_add_screen", "show RepeatChoose")
+    Row (
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        modifier = modifier
+    ) {
+        SuggestionChipWidget(
+            enabled = repeatType != RepeatType.Day,
+            onClick = {
+                callback(RepeatType.Day)
+            },
+            label = {
+                Text(stringResource(R.string.day))
+            }
+        )
+        SuggestionChipWidget(
+            enabled = repeatType != RepeatType.Week,
+            onClick = {
+                callback(RepeatType.Week)
+            },
+            label =  {
+                Text(stringResource(R.string.week))
+            }
+        )
+        SuggestionChipWidget(
+            enabled = repeatType != RepeatType.Month,
+            onClick = {
+                callback(RepeatType.Month)
+            },
+            label = {
+                Text(stringResource(R.string.month))
+            }
+        )
+    }
+}
+
 @Preview (
     showBackground = true,
     backgroundColor = Color.WHITE.toLong()
@@ -205,4 +269,18 @@ fun MaintainAddScreenPreview() {
         maintainVM = viewModel(),
         tabVM = viewModel()
     )
+}
+
+@Preview (
+    showBackground = true,
+    backgroundColor = Color.WHITE.toLong()
+)
+@Composable
+fun RepeatChoosePreview() {
+    var repeatType by remember { mutableStateOf(RepeatType.Day) }
+    RepeatChoose(
+        repeatType = repeatType,
+    ) {
+        repeatType = it
+    }
 }

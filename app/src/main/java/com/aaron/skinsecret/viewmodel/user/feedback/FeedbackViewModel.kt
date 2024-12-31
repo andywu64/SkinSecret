@@ -51,7 +51,7 @@ class FeedbackViewModel: ViewModel() {
         return listOf(
             Feedback(
                 id = 1,
-                title = "意見標題1",
+                //title = "意見標題1",
                 content = "意見1",
                 reply = "回覆1",
                 date = LocalDateTime.now(),
@@ -59,7 +59,7 @@ class FeedbackViewModel: ViewModel() {
             ),
             Feedback(
                 id = 2,
-                title = "意見標題2",
+                //title = "意見標題2",
                 content = "意見2",
                 reply = "回覆2",
                 date = LocalDateTime.now(),
@@ -67,7 +67,7 @@ class FeedbackViewModel: ViewModel() {
             ),
             Feedback(
                 id = 3,
-                title = "意見標題3",
+                //title = "意見標題3",
                 content = "意見3",
                 reply = "回覆3",
                 date = LocalDateTime.now(),
@@ -75,7 +75,7 @@ class FeedbackViewModel: ViewModel() {
             ),
             Feedback(
                 id = 1,
-                title = "意見標題4",
+                //title = "意見標題4",
                 content = "意見4",
                 reply = "回覆4",
                 date = LocalDateTime.now(),
@@ -83,7 +83,7 @@ class FeedbackViewModel: ViewModel() {
             ),
             Feedback(
                 id = 2,
-                title = "意見標題5",
+                //title = "意見標題5",
                 content = "意見5",
                 reply = "回覆5",
                 date = LocalDateTime.now(),
@@ -91,7 +91,7 @@ class FeedbackViewModel: ViewModel() {
             ),
             Feedback(
                 id = 1,
-                title = "意見標題6",
+                //title = "意見標題6",
                 content = "意見6",
                 reply = "回覆6",
                 date = LocalDateTime.now(),
@@ -99,7 +99,7 @@ class FeedbackViewModel: ViewModel() {
             ),
             Feedback(
                 id = 2,
-                title = "意見標題7",
+                //title = "意見標題7",
                 content = "意見7",
                 reply = "回覆7",
                 date = LocalDateTime.now(),
@@ -107,7 +107,7 @@ class FeedbackViewModel: ViewModel() {
             ),
             Feedback(
                 id = 1,
-                title = "意見標題8",
+                //title = "意見標題8",
                 content = "意見8",
                 reply = "回覆8",
                 date = LocalDateTime.now(),
@@ -115,7 +115,7 @@ class FeedbackViewModel: ViewModel() {
             ),
             Feedback(
                 id = 2,
-                title = "意見標題9",
+                //title = "意見標題9",
                 content = "意見9",
                 reply = "回覆9",
                 date = LocalDateTime.now(),
@@ -123,7 +123,7 @@ class FeedbackViewModel: ViewModel() {
             ),
             Feedback(
                 id = 1,
-                title = "意見標題10",
+                //title = "意見標題10",
                 content = "意見10",
                 reply = "回覆10",
                 date = LocalDateTime.now(),
@@ -131,7 +131,7 @@ class FeedbackViewModel: ViewModel() {
             ),
             Feedback(
                 id = 2,
-                title = "意見標題11",
+                //title = "意見標題11",
                 content = "意見11",
                 reply = "回覆11",
                 date = LocalDateTime.now(),
@@ -139,7 +139,7 @@ class FeedbackViewModel: ViewModel() {
             ),
             Feedback(
                 id = 3,
-                title = "意見標題12",
+                //title = "意見標題12",
                 content = "意見12",
                 reply = "回覆12",
                 date = LocalDateTime.now(),
@@ -147,7 +147,7 @@ class FeedbackViewModel: ViewModel() {
             ),
             Feedback(
                 id = 3,
-                title = "意見標題13",
+                //title = "意見標題13",
                 content = "意見13",
                 reply = "回覆13",
                 date = LocalDateTime.now(),
