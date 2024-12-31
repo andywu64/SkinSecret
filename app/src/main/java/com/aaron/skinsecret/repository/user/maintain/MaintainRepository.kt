@@ -11,7 +11,7 @@ object MaintainRepository {
     @SuppressLint("NewApi")
     private val _maintainState = MutableStateFlow(Maintain(
         id = -1,
-        userId = "",
+        userId = "U00000006",
         title = "",
         reminder = LocalDateTime.now(),
         interval = 0

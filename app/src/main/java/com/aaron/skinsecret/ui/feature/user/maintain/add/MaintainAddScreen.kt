@@ -171,8 +171,7 @@ fun MaintainAddScreen(
                     onClick = {
                         if (title.isNotEmpty() &&
                             interval > 0 &&
-                            maintain.value.userId.isNotEmpty() &&
-                            maintain.value.userId != "-1"
+                            maintain.value.userId.isNotEmpty()
                             ) {
                             coroutineScope.launch {
                                 val response = maintainVM.createItem(
