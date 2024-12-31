@@ -20,6 +20,10 @@ class MaintainViewModel: ViewModel() {
     private val repository = MaintainRepository
     val maintainEdit = repository.maintainState
 
+    fun addNewMaintain() {
+        repository.addNewMaintain()
+    }
+
     fun updateMaintainState(data: Maintain){
         repository.setMaintain(data)
     }
@@ -98,14 +102,14 @@ class MaintainViewModel: ViewModel() {
         }
     }*/
 
-    suspend fun updateItem(item: Maintain) : Maintain? {
+    suspend fun updateItem(item: Maintain) : Int {
         try {
             val response = MaintainAipInstance.api.updateMaintain(item)
             Log.d(tag, "response: $response")
             return response
         } catch (e: Exception) {
             Log.e(tag, "error: ${e.message}")
-            return null
+            return -1
         }
     }
 

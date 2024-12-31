@@ -13,7 +13,13 @@ data class Maintain(
     val title: String,       // 標題
 ) {
     override fun equals(other: Any?): Boolean {
-        return this.id == (other as Maintain).id
+        return (
+                this.id == (other as Maintain).id &&
+                this.userId == other.userId &&
+                this.reminder == other.reminder &&
+                this.interval == other.interval &&
+                this.title == other.title
+                )
     }
 
     override fun hashCode(): Int {

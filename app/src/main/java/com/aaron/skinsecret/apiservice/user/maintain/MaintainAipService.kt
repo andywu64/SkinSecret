@@ -37,7 +37,7 @@ interface MaintainApiService {
     suspend fun updateMaintain(
         //@Path("id") id: Int,
         @Body updateRequest: Maintain
-    ): Maintain?
+    ): Int
 
     @DELETE("maintains")
     suspend fun deleteMaintain(@Query("id") id: Int): Response<Unit>

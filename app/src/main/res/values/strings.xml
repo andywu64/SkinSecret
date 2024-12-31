@@ -54,4 +54,5 @@
     <string name="feedback_content">意見內容</string>
     <string name="feedback_content_input_pls">請輸入意見內容</string>
     <string name="title_input_pls">請輸入標題</string>
+    <string name="edit">修改</string>
 </resources>

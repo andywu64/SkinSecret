@@ -9,14 +9,22 @@ import java.time.LocalDateTime
 
 object MaintainRepository {
     @SuppressLint("NewApi")
-    private val _maintainState = MutableStateFlow(Maintain(
+    private val newMaintainTemplate = Maintain(
         id = -1,
         userId = "U00000006",
         title = "",
         reminder = LocalDateTime.now(),
         interval = 0
-    ))
+    )
+
+    @SuppressLint("NewApi")
+    private val _maintainState = MutableStateFlow(newMaintainTemplate)
     val maintainState: StateFlow<Maintain> = _maintainState.asStateFlow()
+
+    @SuppressLint("NewApi")
+    fun addNewMaintain() {
+        _maintainState.value = newMaintainTemplate
+    }
 
     fun setMaintain(value: Maintain) {
         _maintainState.value = value

@@ -9,11 +9,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshState
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Gray
@@ -29,6 +39,7 @@ import com.aaron.skinsecret.dataclass.user.maintain.Maintain
 import com.aaron.skinsecret.viewmodel.user.maintain.MaintainViewModel
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MaintainScreen(
     navController: NavHostController,
@@ -38,14 +49,21 @@ fun MaintainScreen(
     tabVM.updateTabState(false)
     val maintains = maintainVM.maintainsState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
+    var refreshing by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        maintainVM.getMaintains()
+    }
+
     Box {
-        MaintainLists(maintains.value,
+        MaintainLists(
+            maintains.value,
             onItemClick = {
                 maintainVM.updateMaintainState(it)
+                navController.navigate(getMaintainAddNavigationRoute())
             },
             onDeleteClick = {
                 coroutineScope.launch {
-                    //response = requestVM.updateUser(name, job)
                     if (maintainVM.deleteItem(it.id)) {
                         maintainVM.getMaintains()
                     }
@@ -54,6 +72,7 @@ fun MaintainScreen(
         )
         FloatingActionButton(
             onClick = {
+                maintainVM.addNewMaintain()
                 navController.navigate(getMaintainAddNavigationRoute())
             },
             modifier = Modifier

@@ -37,6 +37,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aaron.skinsecret.R
+import com.aaron.skinsecret.dataclass.user.maintain.Maintain
 import com.aaron.skinsecret.ui.TabVM
 import com.aaron.skinsecret.ui.theme.WhiteSmoke
 import com.aaron.skinsecret.ui.widget.ButtonRound
@@ -62,6 +63,7 @@ fun MaintainAddScreen(
 ) {
     tabVM.updateTabState(false)
     val maintain = maintainVM.maintainEdit.collectAsState()
+    val editMode = maintain.value.id > 0
     var title by remember { mutableStateOf(maintain.value.title) }
     var reminder by remember { mutableStateOf(maintain.value.reminder) }
     var interval by remember { mutableLongStateOf(maintain.value.interval) }
@@ -174,15 +176,31 @@ fun MaintainAddScreen(
                             maintain.value.userId.isNotEmpty()
                             ) {
                             coroutineScope.launch {
-                                val response = maintainVM.createItem(
-                                    userId = maintain.value.userId,
-                                    reminder = reminder,
-                                    interval = interval,
-                                    title = title,
-                                )
-                                if (response > 0) {
-                                    maintainVM.getMaintains()
-                                    navController.popBackStack()
+                                if (editMode) {
+                                    val response = maintainVM.updateItem(
+                                        Maintain(
+                                            id = maintain.value.id,
+                                            userId = maintain.value.userId,
+                                            reminder = reminder,
+                                            interval = interval,
+                                            title = title,
+                                        )
+                                    )
+                                    if (response > 0) {
+                                        maintainVM.getMaintains()
+                                        navController.popBackStack()
+                                    }
+                                } else {
+                                    val response = maintainVM.createItem(
+                                        userId = maintain.value.userId,
+                                        reminder = reminder,
+                                        interval = interval,
+                                        title = title,
+                                    )
+                                    if (response > 0) {
+                                        maintainVM.getMaintains()
+                                        navController.popBackStack()
+                                    }
                                 }
                             }
                         }
@@ -191,7 +209,10 @@ fun MaintainAddScreen(
                     modifier = Modifier
                         .weight(1f)
                 ) {
-                    Text(stringResource(R.string.add))
+                    Text(
+                        if (editMode) stringResource(R.string.edit)
+                         else stringResource(R.string.add)
+                    )
                 }
             }
         }
