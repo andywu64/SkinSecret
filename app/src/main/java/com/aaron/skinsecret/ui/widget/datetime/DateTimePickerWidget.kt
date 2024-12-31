@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import java.time.LocalDateTime
 
@@ -17,17 +18,19 @@ fun DateTimePickerWidget(
     datetime: LocalDateTime,
     selectedDatetime: (LocalDateTime) -> Unit
 ) {
-    val date by remember { mutableStateOf(datetime.toLocalDate()) }
-    val time by remember { mutableStateOf(datetime.toLocalTime()) }
+    var date by remember { mutableStateOf(datetime.toLocalDate()) }
+    var time by remember { mutableStateOf(datetime.toLocalTime()) }
     Row {
         DatePickerWidget (
             date = date
         ) {
+            date = it
             selectedDatetime(date.atTime(time))
         }
         TimePickerWidget (
             time = time
         ) {
+            time = it
             selectedDatetime(date.atTime(time))
         }
     }
