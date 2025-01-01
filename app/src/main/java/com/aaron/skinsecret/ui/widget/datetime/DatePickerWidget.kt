@@ -36,6 +36,7 @@ import java.util.Locale
 @SuppressLint("RememberReturnType", "NewApi")
 @Composable
 fun DatePickerWidget(
+    isClickable: Boolean = true,
     date: LocalDate,
     modifier: Modifier = Modifier,
     //.fillMaxSize()

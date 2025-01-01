@@ -36,6 +36,7 @@ import java.time.format.FormatStyle
 @SuppressLint("NewApi")
 @Composable
 fun TimePickerWidget(
+    isClickable: Boolean = true,
     time: LocalTime,
     modifier: Modifier = Modifier,
         //.fillMaxSize()
@@ -52,6 +53,7 @@ fun TimePickerWidget(
     ) {
         // 點擊按鈕會跳出time picker dialog
         Button(
+            enabled = isClickable,
             onClick = { showTimePickerDialog = true },
             colors = ButtonColors(
                 containerColor = Transparent,

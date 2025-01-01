@@ -15,6 +15,7 @@ import java.time.LocalDateTime
 @SuppressLint("NewApi")
 @Composable
 fun DateTimePickerWidget(
+    isClickable: Boolean = false,
     datetime: LocalDateTime,
     selectedDatetime: (LocalDateTime) -> Unit
 ) {
@@ -22,12 +23,14 @@ fun DateTimePickerWidget(
     var time by remember { mutableStateOf(datetime.toLocalTime()) }
     Row {
         DatePickerWidget (
+            isClickable = isClickable,
             date = date
         ) {
             date = it
             selectedDatetime(date.atTime(time))
         }
         TimePickerWidget (
+            isClickable = isClickable,
             time = time
         ) {
             time = it
