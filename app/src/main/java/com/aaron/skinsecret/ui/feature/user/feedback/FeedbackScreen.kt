@@ -12,7 +12,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,8 +25,9 @@ import androidx.navigation.compose.rememberNavController
 import com.aaron.skinsecret.ui.TabVM
 import com.aaron.skinsecret.ui.feature.user.feedback.add.getFeedbackAddNavigationRoute
 import com.aaron.skinsecret.ui.widget.ItemFeedback
-import com.aaron.skinsecret.dataclass.user.feedback.Feedback
+import com.aaron.skinsecret.dataclass.user.Feedback
 import com.aaron.skinsecret.viewmodel.user.feedback.FeedbackViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun FeedbackScreen(
@@ -34,19 +37,30 @@ fun FeedbackScreen(
 ) {
     tabVM.updateTabState(false)
     val feedbacks = feedbackVM.feedbacksState.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        feedbackVM.getFeedbacks()
+    }
 
     Box {
         FeedbackLists(
             feedbacks.value,
             onItemClick = {
                 feedbackVM.updateFeedbackState(it)
+                navController.navigate(getFeedbackAddNavigationRoute())
             },
             onDeleteClick = {
-                feedbackVM.removeItem(it)
+                coroutineScope.launch {
+                    if (feedbackVM.deleteItem(it.id)) {
+                        feedbackVM.getFeedbacks()
+                    }
+                }
             }
         )
         FloatingActionButton(
             onClick = {
+                feedbackVM.addFeedback()
                 navController.navigate(getFeedbackAddNavigationRoute())
             },
             modifier = Modifier

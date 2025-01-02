@@ -39,7 +39,6 @@ import com.aaron.skinsecret.dataclass.user.maintain.Maintain
 import com.aaron.skinsecret.viewmodel.user.maintain.MaintainViewModel
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MaintainScreen(
     navController: NavHostController,
@@ -49,7 +48,6 @@ fun MaintainScreen(
     tabVM.updateTabState(false)
     val maintains = maintainVM.maintainsState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
-    var refreshing by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         maintainVM.getMaintains()

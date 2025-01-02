@@ -6,7 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,7 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.aaron.skinsecret.dataclass.user.feedback.Feedback
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.aaron.skinsecret.dataclass.user.Feedback
+import com.aaron.skinsecret.viewmodel.user.feedback.FeedbackViewModel
 import java.time.LocalDateTime
 
 @Composable
@@ -95,14 +96,10 @@ fun ItemFeedback(
     //heightDp = 150
 )
 @Composable
-fun ItemFeedbackPreview() {
+fun ItemFeedbackPreview(
+    feedbackVM: FeedbackViewModel = viewModel()
+) {
     ItemFeedback(
-        feedback = Feedback(
-            id = 1,
-            content = "意見1",
-            reply = "回覆1",
-            date = LocalDateTime.now(),
-            replyDate = LocalDateTime.now().withHour(1)
-        )
+        feedback = feedbackVM.previewFeedback()
     )
 }

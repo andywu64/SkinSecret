@@ -1,14 +1,14 @@
-package com.aaron.skinsecret.dataclass.user.feedback
+package com.aaron.skinsecret.dataclass.user
 
 import java.time.LocalDateTime
 
 data class Feedback (
-    var id: Int = 0,
-    var userId: String = "",
-    var productId: Int = 0,
-    var content: String = "",
-    var reply: String = "",
-    var date: LocalDateTime,
+    var id: Int,
+    var userId: String,
+    var procId: Int,
+    var content: String,
+    var reply: String,
+    var createDate: LocalDateTime,
     var replyDate: LocalDateTime,
 ) {
     override fun equals(other: Any?): Boolean {
